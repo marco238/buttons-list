@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -13,20 +14,39 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final double iconSize = 40.0;
-  final TextStyle textStyle = new TextStyle(
-      color: Colors.grey,
-      fontSize: 25.0
-  );
   int currentTab = 0;
+
+  HomePage home;
+  ChatPage chat;
+  SettingsPage settings;
+  List<Widget> pages;
+  Widget currentPage;
+
+  @override
+  void initState() {
+    home = HomePage();
+    chat = ChatPage();
+    settings = SettingsPage();
+
+    pages = [home, chat, settings];
+
+    currentPage = home;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.redAccent,
         currentIndex: currentTab,
         onTap: (int index) {
-          setState(() => currentTab = index);
+          setState(() {
+            currentTab = index;
+            currentPage = pages[index];
+          });
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -45,29 +65,10 @@ class _MyAppState extends State<MyApp> {
         ],
       ),
       appBar: new AppBar(
-        title: new Text("My Social Media"),
+        title: new Text("My Useless App"),
+        backgroundColor: Colors.redAccent,
       ),
-      body: new Container(
-        child: Center(
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              new MyCard(
-                  title: new Text("I love Flutter", style: textStyle),
-                  icon: new Icon(Icons.favorite, size: iconSize, color: Colors.redAccent,)
-              ),
-              new MyCard(
-                  title: new Text("I like Dart", style: textStyle),
-                  icon: new Icon(Icons.thumb_up, size: iconSize, color: Colors.blueAccent,)
-              ),
-              new MyCard(
-                  title: new Text("Next Video", style: textStyle),
-                  icon: new Icon(Icons.queue_play_next, size: iconSize, color: Colors.green,)
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: currentPage,
     );
   }
 }
@@ -96,5 +97,96 @@ class MyCard extends StatelessWidget {
     );
   }
 }
+
+class HomePage extends StatelessWidget {
+  final double iconSize = 40.0;
+  final TextStyle textStyle = new TextStyle(
+      color: Colors.grey,
+      fontSize: 25.0
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: Center(
+        child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            new MyCard(
+                title: new Text("Facebook", style: textStyle),
+                icon: new Icon(FontAwesomeIcons.facebook, size: iconSize, color: Colors.blueAccent,)
+            ),
+            new MyCard(
+                title: new Text("Instagram", style: textStyle),
+                icon: new Icon(FontAwesomeIcons.instagram, size: iconSize, color: Colors.deepOrange,)
+            ),
+            new MyCard(
+                title: new Text("Twitter", style: textStyle),
+                icon: new Icon(FontAwesomeIcons.twitter, size: iconSize, color: Colors.lightBlueAccent,)
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class ChatPage extends StatelessWidget {
+  final double iconSize = 40.0;
+  final TextStyle textStyle = new TextStyle(
+      color: Colors.grey,
+      fontSize: 25.0
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: Center(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text("Chat Not Available", style: textStyle,),
+            new Icon(FontAwesomeIcons.sadTear, size: iconSize, color: Colors.redAccent,)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  final double iconSize = 40.0;
+  final TextStyle textStyle = new TextStyle(
+      color: Colors.grey,
+      fontSize: 25.0
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: Center(
+        child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            new MyCard(
+                title: new Text("Edit Profile", style: textStyle),
+                icon: new Container()
+            ),
+            new MyCard(
+                title: new Text("Change Theme", style: textStyle),
+                icon: new Container()
+            ),
+            new MyCard(
+                title: new Text("Something else", style: textStyle),
+                icon: new Container()
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 
