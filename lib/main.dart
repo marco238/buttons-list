@@ -6,11 +6,16 @@ void main() {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final double iconSize = 40.0;
   final TextStyle textStyle = new TextStyle(
-    color: Colors.grey,
-    fontSize: 25.0
+      color: Colors.grey,
+      fontSize: 25.0
   );
   int currentTab = 0;
 
@@ -21,10 +26,7 @@ class MyApp extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentTab,
         onTap: (int index) {
-          setState((){
-            currentTab = index;
-          });
-          debugPrint("Curren Tab = $currentTab, index = $index");
+          setState(() => currentTab = index);
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -33,17 +35,17 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.chat_bubble_outline, size: iconSize,),
-            title: new Text("Chat")
+              icon: new Icon(Icons.chat_bubble_outline, size: iconSize,),
+              title: new Text("Chat")
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.settings, size: iconSize,),
-            title: new Text("Settings")
+              icon: new Icon(Icons.settings, size: iconSize,),
+              title: new Text("Settings")
           )
-      ],
+        ],
       ),
       appBar: new AppBar(
-        title: new Text("Test Flutter App 3"),
+        title: new Text("My Social Media"),
       ),
       body: new Container(
         child: Center(
