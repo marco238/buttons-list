@@ -8,14 +8,42 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final double iconSize = 40.0;
-  final double textScaleFactor = 1.3;
+  final TextStyle textStyle = new TextStyle(
+    color: Colors.grey,
+    fontSize: 25.0
+  );
+  int currentTab = 0;
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentTab,
+        onTap: (int index) {
+          setState((){
+            currentTab = index;
+          });
+          debugPrint("Curren Tab = $currentTab, index = $index");
+        },
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.home, size: iconSize,),
+            title: new Text("Home"),
+            backgroundColor: Colors.red,
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.chat_bubble_outline, size: iconSize,),
+            title: new Text("Chat")
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.settings, size: iconSize,),
+            title: new Text("Settings")
+          )
+      ],
+      ),
       appBar: new AppBar(
-        title: new Text("Test Flutter App 1"),
+        title: new Text("Test Flutter App 3"),
       ),
       body: new Container(
         child: Center(
@@ -23,16 +51,16 @@ class MyApp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               new MyCard(
-                  title: new Text("I love Flutter", textScaleFactor: textScaleFactor,),
+                  title: new Text("I love Flutter", style: textStyle),
                   icon: new Icon(Icons.favorite, size: iconSize, color: Colors.redAccent,)
               ),
               new MyCard(
-                  title: new Text("I like Dart", textScaleFactor: textScaleFactor,),
+                  title: new Text("I like Dart", style: textStyle),
                   icon: new Icon(Icons.thumb_up, size: iconSize, color: Colors.blueAccent,)
               ),
               new MyCard(
-                  title: new Text("Next Video", textScaleFactor: textScaleFactor,),
-                  icon: new Icon(Icons.queue_play_next, size: iconSize, color: Colors.,)
+                  title: new Text("Next Video", style: textStyle),
+                  icon: new Icon(Icons.queue_play_next, size: iconSize, color: Colors.green,)
               ),
             ],
           ),
@@ -66,3 +94,5 @@ class MyCard extends StatelessWidget {
     );
   }
 }
+
+
